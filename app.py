@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, send_file, abort
 import datetime
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'
+app.secret_key = 'supersecretkey'  # For flash messages
 
 @app.route('/', methods=['GET', 'POST'])
 def confess():
@@ -23,6 +23,18 @@ def confess():
         return render_template('submitted.html')
 
     return render_template('confession.html')
+
+@app.route('/download-confessions')
+def download_confessions():
+    # Simple security key check to prevent unauthorized download
+    secret_key = request.args.get('key')
+    if secret_key != 'admin123':  # Change 'YOUR_SECRET_KEY' to a strong password
+        abort(403)  # Forbidden access otherwise
+
+    try:
+        return send_file('data/confessions.txt', as_attachment=True)
+    except Exception as e:
+        return str(e)
 
 if __name__ == '__main__':
     app.run(debug=True)
