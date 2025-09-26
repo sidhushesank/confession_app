@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confession Form</title>
+    <style>
+        /* Water bubbles animated background */
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Container for bubbles */
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -150px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: rise 15s linear infinite;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+        }
+
+        /* Different sizes and positions for bubbles */
+        .bubble:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            left: 10%;
+            animation-duration: 12s;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            left: 25%;
+            animation-duration: 18s;
+            animation-delay: 3s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            left: 40%;
+            animation-duration: 16s;
+            animation-delay: 5s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 50px;
+            height: 50px;
+            left: 60%;
+            animation-duration: 14s;
+            animation-delay: 7s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            left: 80%;
+            animation-duration: 20s;
+            animation-delay: 2s;
+        }
+
+        /* Animation for bubbles rising */
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateY(-110vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Form container styling */
+        .form-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            width: 350px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border: 2px solid #ccd6f6;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: none;
+            font-family: inherit;
+        }
+
+        input[type="submit"] {
+            background-color: #a8edea;
+            border: none;
+            padding: 12px 20px;
+            font-weight: bold;
+            color: #333;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #7bc4d6;
+        }
+
+        p {
+            font-size: 13px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Privacy message */
+        small.privacy {
+            color: gray;
+            font-size: 12px;
+        }
+
+        /* Flash message styling */
+        .flash-message {
+            color: red;
+            font-weight: bold;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <div class="form-container">
+        <h2>Send your confession anonymously</h2>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-message">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <input type="text" name="ig_username" placeholder="Instagram Username" required><br>
+            <small class="privacy">Your Instagram username will be kept strictly confidential and not shared with anyone.</small><br>
+            <textarea name="confession" rows="5" placeholder="Type your confession"></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+        <p>Your confession will be kept confidential. Instagram username is required for validation.</p>
+    </div>
+
+</body>
+</html>
