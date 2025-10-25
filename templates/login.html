@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anonymous Confessions</title>
+    <title>Admin Login - Confessions</title>
     <style>
         * {
             margin: 0;
@@ -21,27 +21,20 @@
             padding: 20px;
         }
         
-        .container {
+        .login-container {
             background: white;
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 600px;
+            max-width: 400px;
             width: 100%;
         }
         
         h1 {
             color: #667eea;
-            margin-bottom: 15px;
-            text-align: center;
-            font-size: 32px;
-        }
-        
-        .subtitle {
-            text-align: center;
-            color: #666;
             margin-bottom: 30px;
-            font-size: 14px;
+            text-align: center;
+            font-size: 28px;
         }
         
         .form-group {
@@ -52,45 +45,31 @@
             display: block;
             margin-bottom: 8px;
             color: #333;
-            font-weight: 600;
+            font-weight: 500;
         }
         
-        .optional {
-            color: #999;
-            font-weight: 400;
-            font-size: 12px;
-        }
-        
-        input[type="text"],
-        textarea {
+        input[type="password"] {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             font-size: 16px;
-            font-family: inherit;
             transition: border-color 0.3s;
         }
         
-        input[type="text"]:focus,
-        textarea:focus {
+        input[type="password"]:focus {
             outline: none;
             border-color: #667eea;
         }
         
-        textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
         button {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
@@ -101,22 +80,17 @@
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
         }
         
-        button:active {
-            transform: translateY(0);
-        }
-        
-        .privacy-note {
-            background: #f0f8ff;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #555;
-        }
-        
-        .privacy-note strong {
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
             color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
         }
         
         .flash-message {
@@ -130,9 +104,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🤫 Anonymous Confessions</h1>
-        <p class="subtitle">Share your secrets safely</p>
+    <div class="login-container">
+        <h1>🔒 Admin Access</h1>
         
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -140,36 +113,16 @@
             {% endif %}
         {% endwith %}
         
-        <div class="privacy-note">
-            <strong>🔒 100% Anonymous:</strong> Instagram username is completely optional. Leave it blank for total anonymity!
-        </div>
-        
-        <form method="POST" action="{{ url_for('submit') }}">
+        <form method="POST">
             <div class="form-group">
-                <label for="ig_username">
-                    Instagram Username <span class="optional">(Optional - Leave blank to stay fully anonymous)</span>
-                </label>
-                <input 
-                    type="text" 
-                    id="ig_username" 
-                    name="ig_username" 
-                    placeholder="@username (optional)"
-                >
+                <label for="key">Enter Secret Key:</label>
+                <input type="password" id="key" name="key" required autofocus>
             </div>
             
-            <div class="form-group">
-                <label for="confession">Your Confession <span style="color: red;">*</span></label>
-                <textarea 
-                    id="confession" 
-                    name="confession" 
-                    placeholder="Share your secret here..." 
-                    required
-                    autofocus
-                ></textarea>
-            </div>
-            
-            <button type="submit">🚀 Submit Confession</button>
+            <button type="submit">🔓 Login</button>
         </form>
+        
+        <a href="{{ url_for('index') }}" class="back-link">← Back to Confessions</a>
     </div>
 </body>
 </html>
