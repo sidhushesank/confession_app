@@ -1,31 +1,13 @@
 # Python cache
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
+*.pyc
 
 # Virtual environment
 venv/
 env/
-ENV/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Flask
-instance/
-.webassets-cache
-
-# Data files (confessions - optional)
-data/confessions.txt
-
-# OS files
-.DS_Store
-Thumbs.db
 
 # Environment variables
 .env
+
+# Data files (optional - if you want to keep local testing data)
+data/confessions.txt
